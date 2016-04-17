@@ -1,2 +1,3 @@
 # MSGlitcher
-# MSGlitcher
+
+Glitch Art wannabe.
