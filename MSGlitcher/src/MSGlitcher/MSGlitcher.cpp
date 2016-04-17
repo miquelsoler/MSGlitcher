@@ -5,6 +5,12 @@
 
 #include "MSGlitcher.h"
 
+#include "MSGlitchInvert.h"
+#include "MSGlitchGrayscale.h"
+#include "MSGlitchRed.h"
+#include "MSGlitchGreen.h"
+#include "MSGlitchBlue.h"
+
 void MSGlitcher::init(int _videoWidth, int _videoHeight)
 {
     videoWidth = _videoWidth;
@@ -14,25 +20,21 @@ void MSGlitcher::init(int _videoWidth, int _videoHeight)
     glitchedTexture.allocate(glitchedPixels);
 }
 
-MSGlitch* MSGlitcher::addGlitch(MSGlitchType glitchType)
+MSGlitch* MSGlitcher::addGlitch(int videoWidth, int videoHeight, MSGlitchType glitchType)
 {
+    MSGlitch *glitch = NULL;
     switch(glitchType)
     {
-        case MSGT_INVERT: {
-            MSGlitchInvert *glitch = new MSGlitchInvert();
-            glitches.push_back(glitch);
-            return glitch;
-        }
-        case MSGT_GRAYSCALE: {
-            MSGlitchGrayscale *glitch = new MSGlitchGrayscale();
-            glitches.push_back(glitch);
-            return glitch;
-        }
-        default:
-        {
-            return NULL;
-        }
+        case MSGT_INVERT:       glitch = new MSGlitchInvert(videoWidth, videoHeight); break;
+        case MSGT_GRAYSCALE:    glitch = new MSGlitchGrayscale(videoWidth, videoHeight); break;
+        case MSGT_RED:          glitch = new MSGlitchRed(videoWidth, videoHeight); break;
+        case MSGT_GREEN:        glitch = new MSGlitchGreen(videoWidth, videoHeight); break;
+        case MSGT_BLUE:         glitch = new MSGlitchBlue(videoWidth, videoHeight); break;
+        default: break;
     }
+
+    if (glitch != NULL) glitches.push_back(glitch);
+    return glitch;
 }
 
 void MSGlitcher::update(ofPixels &sourcePixels)

@@ -1,19 +1,18 @@
 //
-//  MSGlitchInvert.hpp
-//  Test1
-//
-//  Created by Miquel Àngel Soler on 17/4/16.
-//
+// Created by Miquel Àngel Soler on 17/4/16.
 //
 
-#ifndef MSGlitchInvert_h
-#define MSGlitchInvert_h
+#ifndef MSGLITCHER_MSGLITCHINVERT_H
+#define MSGLITCHER_MSGLITCHINVERT_H
 
 #include "MSGlitch.h"
 
 class MSGlitchInvert : public MSGlitch
 {
+public:
+
+    MSGlitchInvert(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) {};
     void update(ofPixels &sourcePixels);
 };
 
-#endif /* MSGlitchInvert_h */
+#endif //MSGLITCHER_MSGLITCHINVERT_H

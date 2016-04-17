@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		214762C12D91448834CF2A23 /* MSGlitchBlue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 214765403401D7A518FF5F1A /* MSGlitchBlue.cpp */; };
+		21476520496707F00086B220 /* MSGlitchGreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21476E5B83463EF2610179CD /* MSGlitchGreen.cpp */; };
+		21476D4CFFB153918B826149 /* MSGlitchRed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21476F2692D847A10A7BAFEA /* MSGlitchRed.cpp */; };
 		2A0CA84B1CC32C1E008E59D0 /* MSGlitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A0CA8431CC32C1E008E59D0 /* MSGlitch.cpp */; };
 		2A0CA84C1CC32C1E008E59D0 /* MSGlitcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A0CA8451CC32C1E008E59D0 /* MSGlitcher.cpp */; };
 		2A0CA84D1CC32C1E008E59D0 /* MSGlitchGrayscale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A0CA8471CC32C1E008E59D0 /* MSGlitchGrayscale.cpp */; };
@@ -46,6 +49,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		214761FB0DECC67CF3C4AE9E /* MSGlitchRed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGlitchRed.h; sourceTree = "<group>"; };
+		2147645E9F2DE3A2A1E28F8A /* MSGlitchBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGlitchBlue.h; sourceTree = "<group>"; };
+		214765403401D7A518FF5F1A /* MSGlitchBlue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSGlitchBlue.cpp; sourceTree = "<group>"; };
+		21476E59B84CD2641CCA5E1D /* MSGlitchGreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGlitchGreen.h; sourceTree = "<group>"; };
+		21476E5B83463EF2610179CD /* MSGlitchGreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSGlitchGreen.cpp; sourceTree = "<group>"; };
+		21476F2692D847A10A7BAFEA /* MSGlitchRed.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSGlitchRed.cpp; sourceTree = "<group>"; };
 		2A0CA8431CC32C1E008E59D0 /* MSGlitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSGlitch.cpp; sourceTree = "<group>"; };
 		2A0CA8441CC32C1E008E59D0 /* MSGlitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGlitch.h; sourceTree = "<group>"; };
 		2A0CA8451CC32C1E008E59D0 /* MSGlitcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSGlitcher.cpp; sourceTree = "<group>"; };
@@ -79,14 +88,20 @@
 		2A0CA8421CC32C1E008E59D0 /* MSGlitcher */ = {
 			isa = PBXGroup;
 			children = (
-				2A0CA8431CC32C1E008E59D0 /* MSGlitch.cpp */,
-				2A0CA8441CC32C1E008E59D0 /* MSGlitch.h */,
 				2A0CA8451CC32C1E008E59D0 /* MSGlitcher.cpp */,
 				2A0CA8461CC32C1E008E59D0 /* MSGlitcher.h */,
-				2A0CA8471CC32C1E008E59D0 /* MSGlitchGrayscale.cpp */,
-				2A0CA8481CC32C1E008E59D0 /* MSGlitchGrayscale.h */,
+				2A0CA8431CC32C1E008E59D0 /* MSGlitch.cpp */,
+				2A0CA8441CC32C1E008E59D0 /* MSGlitch.h */,
 				2A0CA8491CC32C1E008E59D0 /* MSGlitchInvert.cpp */,
 				2A0CA84A1CC32C1E008E59D0 /* MSGlitchInvert.h */,
+				2A0CA8471CC32C1E008E59D0 /* MSGlitchGrayscale.cpp */,
+				2A0CA8481CC32C1E008E59D0 /* MSGlitchGrayscale.h */,
+				21476F2692D847A10A7BAFEA /* MSGlitchRed.cpp */,
+				214761FB0DECC67CF3C4AE9E /* MSGlitchRed.h */,
+				21476E5B83463EF2610179CD /* MSGlitchGreen.cpp */,
+				21476E59B84CD2641CCA5E1D /* MSGlitchGreen.h */,
+				214765403401D7A518FF5F1A /* MSGlitchBlue.cpp */,
+				2147645E9F2DE3A2A1E28F8A /* MSGlitchBlue.h */,
 			);
 			path = MSGlitcher;
 			sourceTree = "<group>";
@@ -239,6 +254,9 @@
 				2A0CA84D1CC32C1E008E59D0 /* MSGlitchGrayscale.cpp in Sources */,
 				2A0CA84B1CC32C1E008E59D0 /* MSGlitch.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				21476D4CFFB153918B826149 /* MSGlitchRed.cpp in Sources */,
+				21476520496707F00086B220 /* MSGlitchGreen.cpp in Sources */,
+				214762C12D91448834CF2A23 /* MSGlitchBlue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +373,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
+				baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			};
 			name = Release;
 		};

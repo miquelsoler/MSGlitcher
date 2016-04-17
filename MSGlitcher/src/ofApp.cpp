@@ -7,6 +7,7 @@ void ofApp::setup()
 {
     vector<ofVideoDevice> videoDevices = videoGrabber.listDevices();
     vector<int> availableVideoDevices;
+    cout << endl << "VIDEO DEVICES" << endl;
     for (int i=0; i<videoDevices.size(); ++i)
     {
         ofVideoDevice &device = videoDevices[i];
@@ -14,7 +15,7 @@ void ofApp::setup()
         cout << "Name:      \"" << device.deviceName << "\"" << endl;
         cout << "Id:        \"" << device.id << "\""  << endl;
         cout << "Hardware:  \"" << device.hardwareName << "\""  << endl;
-        cout << "Available: \"" << device.bAvailable << "\""  << endl;
+        cout << "Available: \"" << (device.bAvailable ? "true" : "false") << "\""  << endl;
 
         if (!device.bAvailable) continue;
 
@@ -35,7 +36,7 @@ void ofApp::setup()
     videoGrabber.initGrabber(videoWidth, videoHeight);
 
     MSGlitcher::getInstance().init(videoWidth, videoHeight);
-    MSGlitcher::getInstance().addGlitch(MSGT_GRAYSCALE);
+    MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_RED);
 
     ofSetVerticalSync(true);
 }

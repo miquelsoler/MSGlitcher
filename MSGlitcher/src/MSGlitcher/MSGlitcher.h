@@ -1,18 +1,13 @@
 //
-//  MSGlitcher.hpp
-//  Test1
-//
-//  Created by Miquel Àngel Soler on 17/4/16.
-//
+// Created by Miquel Àngel Soler on 17/4/16.
 //
 
-#ifndef MSGlitcher_h
-#define MSGlitcher_h
+#ifndef MSGLITCHER_MSGLITCHER_H
+#define MSGLITCHER_MSGLITCHER_H
 
 #include <stdio.h>
 #include "ofMain.h"
-#include "MSGlitchInvert.h"
-#include "MSGlitchGrayscale.h"
+#include "MSGlitch.h"
 
 class MSGlitcher
 {
@@ -26,7 +21,7 @@ public:
 
     void init(int videoWidth, int videoHeight);
 
-    MSGlitch* addGlitch(MSGlitchType glitchType);
+    MSGlitch* addGlitch(int videoWidth, int videoHeight, MSGlitchType glitchType);
 
     void update(ofPixels &sourcePixels);
     void draw(float x, float y, float w, float h);
@@ -41,4 +36,4 @@ private:
     ofPixels        glitchedPixels;
 };
 
-#endif /* MSGlitcher_h */
+#endif //MSGLITCHER_MSGLITCHER_H

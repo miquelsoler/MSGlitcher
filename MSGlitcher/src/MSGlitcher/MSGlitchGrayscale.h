@@ -2,15 +2,17 @@
 // Created by Miquel Àngel Soler on 17/4/16.
 //
 
-#ifndef MSGlitchGrayScale_h
-#define MSGlitchGrayScale_h
+#ifndef MSGLITCHER_MSGLITCHGRAYSCALE_H
+#define MSGLITCHER_MSGLITCHGRAYSCALE_H
 
 #include "MSGlitch.h"
 
 class MSGlitchGrayscale : public MSGlitch
 {
+public:
+
+    MSGlitchGrayscale(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) {};
     void update(ofPixels &sourcePixels);
 };
 
-
-#endif //MSGlitchGrayScale_h
+#endif //MSGLITCHER_MSGLITCHGRAYSCALE_H
