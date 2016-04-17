@@ -5,12 +5,6 @@
 
 #include "MSGlitcher.h"
 
-#include "MSGlitchInvert.h"
-#include "MSGlitchGrayscale.h"
-#include "MSGlitchRed.h"
-#include "MSGlitchGreen.h"
-#include "MSGlitchBlue.h"
-
 void MSGlitcher::init(int _videoWidth, int _videoHeight)
 {
     videoWidth = _videoWidth;

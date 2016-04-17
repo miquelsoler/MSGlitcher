@@ -5,9 +5,13 @@
 #ifndef MSGLITCHER_MSGLITCHER_H
 #define MSGLITCHER_MSGLITCHER_H
 
-#include <stdio.h>
 #include "ofMain.h"
-#include "MSGlitch.h"
+#include "MSGlitchInvert.h"
+#include "MSGlitchGrayscale.h"
+#include "MSGlitchRed.h"
+#include "MSGlitchGreen.h"
+#include "MSGlitchBlue.h"
+
 
 class MSGlitcher
 {

@@ -6,6 +6,9 @@
 
 void MSGlitchGrayscale::update(ofPixels &sourcePixels)
 {
+    MSGlitch::update(sourcePixels);
+    if (!hasStarted) return;
+
     for (int i=0; i<sourcePixels.size(); ++i)
     {
         switch(areaMode)

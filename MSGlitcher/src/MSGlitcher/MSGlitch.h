@@ -26,8 +26,9 @@ typedef enum
 
 typedef enum
 {
-    MSGTM_ALWAYS = 0,
-    MSGTM_RANDOM = 1
+    MSGTM_ALWAYS    = 0,
+    MSGTM_RANDOM    = 1,
+    MSGTM_TIMED     = 2
 } MSGlitchTimerMode;
 
 
@@ -39,9 +40,9 @@ public:
     ~MSGlitch();
 
     void setArea(MSGlitchAreaMode areaMode, int areaSizeInPixels = 0);
-    void setTimer(MSGlitchTimerMode timerMode);
+    void setTimer(MSGlitchTimerMode timerMode, uint64_t timerStartMs = 0, uint64_t timerPeriodMs = 0, uint64_t timerLength = 0);
 
-    virtual void update(ofPixels &sourcePixels) = 0;
+    virtual void update(ofPixels &sourcePixels);
 
 protected:
 
@@ -51,6 +52,11 @@ protected:
     int areaSize;
 
     MSGlitchTimerMode timerMode;
+    uint64_t timerStartMs;
+    uint64_t timerPeriodMs;
+    uint64_t timerLength;
+
+    bool hasStarted;
 };
 
 #endif //MSGLITCHER_MSGLITCH_H

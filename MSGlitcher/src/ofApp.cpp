@@ -36,8 +36,10 @@ void ofApp::setup()
     videoGrabber.initGrabber(videoWidth, videoHeight);
 
     MSGlitcher::getInstance().init(videoWidth, videoHeight);
-    MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_RED);
+    MSGlitchGreen *glitch1 = dynamic_cast<MSGlitchGreen *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GREEN));
+    glitch1->setTimer(MSGTM_TIMED, 5000, 0);
 
+    ofSetBackgroundColor(ofColor::black);
     ofSetVerticalSync(true);
 }
 
