@@ -24,6 +24,7 @@ MSGlitch* MSGlitcher::addGlitch(int videoWidth, int videoHeight, MSGlitchType gl
         case MSGT_RED:          glitch = new MSGlitchRed(videoWidth, videoHeight); break;
         case MSGT_GREEN:        glitch = new MSGlitchGreen(videoWidth, videoHeight); break;
         case MSGT_BLUE:         glitch = new MSGlitchBlue(videoWidth, videoHeight); break;
+        case MSGT_NOISE:        glitch = new MSGlitchNoise(videoWidth, videoHeight); break;
         default: break;
     }
 

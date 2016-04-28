@@ -14,6 +14,7 @@ typedef enum
     MSGT_RED                = 2,
     MSGT_GREEN              = 3,
     MSGT_BLUE               = 4,
+    MSGT_NOISE              = 5,
 } MSGlitchType;
 
 typedef enum

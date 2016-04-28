@@ -42,4 +42,5 @@ void MSGlitch::setTimer(MSGlitchTimerMode _timerMode, uint64_t _timerStartMs, ui
 void MSGlitch::update(ofPixels &sourcePixels)
 {
     hasStarted = (timerMode == MSGTM_ALWAYS) || (ofGetElapsedTimeMillis() > timerStartMs);
+    if (!hasStarted) return;
 }

@@ -33,11 +33,26 @@ void ofApp::setup()
 
     videoGrabber.setDeviceID(availableVideoDevices[0]);
     videoGrabber.setDesiredFrameRate(30);
-    videoGrabber.initGrabber(videoWidth, videoHeight);
+    videoGrabber.setup(videoWidth, videoHeight);
+    cout << "w=" << videoGrabber.getWidth() << "- h=" << videoGrabber.getHeight() << endl;
 
     MSGlitcher::getInstance().init(videoWidth, videoHeight);
-    MSGlitchGreen *glitch1 = dynamic_cast<MSGlitchGreen *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GREEN));
-    glitch1->setTimer(MSGTM_TIMED, 5000, 0);
+
+    // Add glich: noise
+    MSGlitchNoise *glitchNoise = dynamic_cast<MSGlitchNoise *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_NOISE));
+    glitchNoise->setTimer(MSGTM_TIMED, 0, 0);
+
+//    // Add glich: grayscale
+//    MSGlitchGrayscale *glitchGrayscale = dynamic_cast<MSGlitchGrayscale *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GRAYSCALE));
+//    glitchGrayscale->setTimer(MSGTM_TIMED, 0, 0);
+//
+//    // Add glich: red
+//    MSGlitchGreen *glitchGreen = dynamic_cast<MSGlitchGreen *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GREEN));
+//    glitchGreen->setTimer(MSGTM_TIMED, 0, 0);
+//
+//    // Add glich: invert
+//    MSGlitchInvert *glitchInvert = dynamic_cast<MSGlitchInvert *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_INVERT));
+//    glitchInvert->setTimer(MSGTM_TIMED, 0, 0);
 
     ofSetBackgroundColor(ofColor::black);
     ofSetVerticalSync(true);

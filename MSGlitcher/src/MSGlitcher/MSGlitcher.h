@@ -11,6 +11,7 @@
 #include "MSGlitchRed.h"
 #include "MSGlitchGreen.h"
 #include "MSGlitchBlue.h"
+#include "MSGlitchNoise.h"
 
 
 class MSGlitcher

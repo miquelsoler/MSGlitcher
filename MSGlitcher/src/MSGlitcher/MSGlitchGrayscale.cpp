@@ -9,7 +9,7 @@ void MSGlitchGrayscale::update(ofPixels &sourcePixels)
     MSGlitch::update(sourcePixels);
     if (!hasStarted) return;
 
-    for (int i=0; i<sourcePixels.size(); ++i)
+    for (int i=0; i<sourcePixels.size(); i+=3)
     {
         switch(areaMode)
         {
@@ -22,18 +22,6 @@ void MSGlitchGrayscale::update(ofPixels &sourcePixels)
                 sourcePixels[i + 0] = (unsigned char)average;
                 sourcePixels[i + 1] = (unsigned char)average;
                 sourcePixels[i + 2] = (unsigned char)average;
-            }
-            case MSGAM_RANDOM:
-            {
-                break;
-            }
-            case MSGAM_HORIZONTAL:
-            {
-                break;
-            }
-            case MSGAM_VERTICAL:
-            {
-                break;
             }
             default: break;
         }

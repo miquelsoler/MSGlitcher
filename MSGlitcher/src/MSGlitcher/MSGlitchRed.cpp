@@ -17,18 +17,6 @@ void MSGlitchRed::update(ofPixels &sourcePixels)
             {
                 if (i % 3 != 0) sourcePixels[i] = 0; break;
             }
-            case MSGAM_RANDOM:
-            {
-                break;
-            }
-            case MSGAM_HORIZONTAL:
-            {
-                break;
-            }
-            case MSGAM_VERTICAL:
-            {
-                break;
-            }
             default: break;
         }
     }
