@@ -38,18 +38,18 @@ void ofApp::setup()
 
     MSGlitcher::getInstance().init(videoWidth, videoHeight);
 
+//    // Add glich: grayscale
+//    MSGlitchGrayscale *glitchGrayscale = dynamic_cast<MSGlitchGrayscale *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GRAYSCALE));
+//    glitchGrayscale->setTimer(MSGTM_TIMED, 0, 0);
+
+    // Add glich: red
+    MSGlitchRed *glitchRed = dynamic_cast<MSGlitchRed *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_RED));
+    glitchRed->setTimer(MSGTM_TIMED, 0, 0);
+
     // Add glich: noise
     MSGlitchNoise *glitchNoise = dynamic_cast<MSGlitchNoise *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_NOISE));
     glitchNoise->setTimer(MSGTM_TIMED, 0, 0);
 
-//    // Add glich: grayscale
-//    MSGlitchGrayscale *glitchGrayscale = dynamic_cast<MSGlitchGrayscale *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GRAYSCALE));
-//    glitchGrayscale->setTimer(MSGTM_TIMED, 0, 0);
-//
-//    // Add glich: red
-//    MSGlitchGreen *glitchGreen = dynamic_cast<MSGlitchGreen *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_GREEN));
-//    glitchGreen->setTimer(MSGTM_TIMED, 0, 0);
-//
 //    // Add glich: invert
 //    MSGlitchInvert *glitchInvert = dynamic_cast<MSGlitchInvert *>(MSGlitcher::getInstance().addGlitch(videoWidth, videoHeight, MSGT_INVERT));
 //    glitchInvert->setTimer(MSGTM_TIMED, 0, 0);

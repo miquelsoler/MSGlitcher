@@ -4,8 +4,8 @@
 
 #include "MSGlitchNoise.h"
 
-static const float NOISE_AMOUNT = 0.5f;
-static const float NOISE_STRENGTH = 0.1f;
+static const float NOISE_AMOUNT = 0.95f;
+static const float NOISE_STRENGTH = 0.5f;
 
 void MSGlitchNoise::update(ofPixels &sourcePixels)
 {
