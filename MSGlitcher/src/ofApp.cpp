@@ -58,15 +58,31 @@ void ofApp::draw()
     videoGrabber.draw(0, 0, ofGetWidth()/2, ofGetHeight()/2);
     MSGlitcher::getInstance().draw(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight()/2);
 
-    int x = 10;
-    int y = 10, yIncr = 10;
-    ofDrawBitmapString("KEYS", x, y += yIncr);
-    ofDrawBitmapString("1: Invert", x, y += yIncr);
-    ofDrawBitmapString("2: Grayscale", x, y += yIncr);
-    ofDrawBitmapString("3: Red", x, y += yIncr);
-    ofDrawBitmapString("4: Green", x, y += yIncr);
-    ofDrawBitmapString("5: Blue", x, y += yIncr);
-    ofDrawBitmapString("6: Noise", x, y += yIncr);
+    // Draw keys
+    {
+        MSGlitcher &glitcher = MSGlitcher::getInstance();
+
+        int x = 10;
+        int y = 10, yIncr = 10;
+        ofColor color = ofColor::white;
+        ofSetColor(color);
+        ofDrawBitmapString("KEYS", x, y += yIncr);
+
+        color = (glitcher.isGlitchAdded(MSGT_INVERT)) ? ofColor::yellow : ofColor::white; ofSetColor(color);
+        ofDrawBitmapString("1: Invert", x, y += yIncr);
+        color = (glitcher.isGlitchAdded(MSGT_GRAYSCALE)) ? ofColor::yellow : ofColor::white; ofSetColor(color);
+        ofDrawBitmapString("2: Grayscale", x, y += yIncr);
+        color = (glitcher.isGlitchAdded(MSGT_RED)) ? ofColor::yellow : ofColor::white; ofSetColor(color);
+        ofDrawBitmapString("3: Red", x, y += yIncr);
+        color = (glitcher.isGlitchAdded(MSGT_GREEN)) ? ofColor::yellow : ofColor::white; ofSetColor(color);
+        ofDrawBitmapString("4: Green", x, y += yIncr);
+        color = (glitcher.isGlitchAdded(MSGT_BLUE)) ? ofColor::yellow : ofColor::white; ofSetColor(color);
+        ofDrawBitmapString("5: Blue", x, y += yIncr);
+        color = (glitcher.isGlitchAdded(MSGT_NOISE)) ? ofColor::yellow : ofColor::white; ofSetColor(color);
+        ofDrawBitmapString("6: Noise", x, y += yIncr);
+
+        ofSetColor(ofColor::white);
+    }
 }
 
 //--------------------------------------------------------------
@@ -112,6 +128,8 @@ void ofApp::keyReleased(int key)
             {
                 MSGlitchRed *glitch = dynamic_cast<MSGlitchRed *>(glitcher.addGlitch(glitchType));
                 glitch->setTimer(MSGTM_TIMED, 0, 0);
+                if (glitcher.isGlitchAdded(MSGT_GREEN)) glitcher.removeGlitch(MSGT_GREEN);
+                if (glitcher.isGlitchAdded(MSGT_BLUE)) glitcher.removeGlitch(MSGT_BLUE);
             } else {
                 glitcher.removeGlitch(glitchType);
             }
@@ -124,6 +142,8 @@ void ofApp::keyReleased(int key)
             {
                 MSGlitchGreen *glitch = dynamic_cast<MSGlitchGreen *>(glitcher.addGlitch(glitchType));
                 glitch->setTimer(MSGTM_TIMED, 0, 0);
+                if (glitcher.isGlitchAdded(MSGT_RED)) glitcher.removeGlitch(MSGT_RED);
+                if (glitcher.isGlitchAdded(MSGT_BLUE)) glitcher.removeGlitch(MSGT_BLUE);
             } else {
                 glitcher.removeGlitch(glitchType);
             }
@@ -136,6 +156,8 @@ void ofApp::keyReleased(int key)
             {
                 MSGlitchBlue *glitch = dynamic_cast<MSGlitchBlue *>(glitcher.addGlitch(glitchType));
                 glitch->setTimer(MSGTM_TIMED, 0, 0);
+                if (glitcher.isGlitchAdded(MSGT_RED)) glitcher.removeGlitch(MSGT_RED);
+                if (glitcher.isGlitchAdded(MSGT_GREEN)) glitcher.removeGlitch(MSGT_GREEN);
             } else {
                 glitcher.removeGlitch(glitchType);
             }
