@@ -11,7 +11,7 @@ class MSGlitchGreen : public MSGlitch
 {
 public:
 
-    MSGlitchGreen(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) {};
+    MSGlitchGreen(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_GREEN; };
     void update(ofPixels &sourcePixels);
 };
 

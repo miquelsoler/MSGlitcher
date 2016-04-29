@@ -11,7 +11,7 @@ class MSGlitchGrayscale : public MSGlitch
 {
 public:
 
-    MSGlitchGrayscale(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) {};
+    MSGlitchGrayscale(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_GRAYSCALE; };
     void update(ofPixels &sourcePixels);
 };
 

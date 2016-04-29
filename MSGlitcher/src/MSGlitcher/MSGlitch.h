@@ -45,9 +45,14 @@ public:
 
     virtual void update(ofPixels &sourcePixels);
 
+    const MSGlitchType &getType() const { return type; }
+
 protected:
 
     int videoWidth, videoHeight;
+
+protected:
+    MSGlitchType type;
 
     MSGlitchAreaMode areaMode;
     int areaSize;

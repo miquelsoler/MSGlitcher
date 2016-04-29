@@ -11,7 +11,7 @@ class MSGlitchRed : public MSGlitch
 {
 public:
     
-    MSGlitchRed(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) {};
+    MSGlitchRed(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_RED; };
     void update(ofPixels &sourcePixels);
 };
 

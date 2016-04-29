@@ -26,7 +26,9 @@ public:
 
     void init(int videoWidth, int videoHeight);
 
-    MSGlitch* addGlitch(int videoWidth, int videoHeight, MSGlitchType glitchType);
+    MSGlitch* addGlitch(MSGlitchType glitchType);
+    void removeGlitch(MSGlitchType glitchType);
+    bool isGlitchAdded(MSGlitchType glitchType);
 
     void update(ofPixels &sourcePixels);
     void draw(float x, float y, float w, float h);

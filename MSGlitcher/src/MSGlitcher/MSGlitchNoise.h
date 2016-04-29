@@ -11,7 +11,7 @@ class MSGlitchNoise : public MSGlitch
 {
 public:
 
-    MSGlitchNoise(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) {};
+    MSGlitchNoise(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_NOISE; };
     void update(ofPixels &sourcePixels);
 };
 

@@ -14,7 +14,7 @@ void MSGlitcher::init(int _videoWidth, int _videoHeight)
     glitchedTexture.allocate(glitchedPixels);
 }
 
-MSGlitch* MSGlitcher::addGlitch(int videoWidth, int videoHeight, MSGlitchType glitchType)
+MSGlitch* MSGlitcher::addGlitch(MSGlitchType glitchType)
 {
     MSGlitch *glitch = NULL;
     switch(glitchType)
@@ -30,6 +30,34 @@ MSGlitch* MSGlitcher::addGlitch(int videoWidth, int videoHeight, MSGlitchType gl
 
     if (glitch != NULL) glitches.push_back(glitch);
     return glitch;
+}
+
+void MSGlitcher::removeGlitch(MSGlitchType glitchType)
+{
+    if (!isGlitchAdded(glitchType)) return;
+
+    int glitchIndex = 0;
+    bool found = false;
+    for (int i=0; i<glitches.size() && !found; ++i) {
+        if (glitches[i]->getType() == glitchType) {
+            glitchIndex = i;
+            found = true;
+        }
+    }
+
+    if (found) {
+        glitches.erase(glitches.begin() + glitchIndex);
+    }
+}
+
+bool MSGlitcher::isGlitchAdded(MSGlitchType glitchType)
+{
+    for (int i=0; i<glitches.size(); ++i) {
+        if (glitches[i]->getType() == glitchType)
+            return true;
+    }
+
+    return false;
 }
 
 void MSGlitcher::update(ofPixels &sourcePixels)
