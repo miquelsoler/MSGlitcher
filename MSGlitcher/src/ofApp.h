@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxDatGui.h"
 
 class ofApp : public ofBaseApp
 {
@@ -13,5 +14,9 @@ public:
 
 private:
 
+    void onButtonEvent(ofxDatGuiButtonEvent e);
+
     ofVideoGrabber videoGrabber;
+
+    ofxDatGui *guiGlitches;
 };

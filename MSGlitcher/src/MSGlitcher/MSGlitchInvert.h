@@ -13,6 +13,8 @@ public:
 
     MSGlitchInvert(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_INVERT; };
     void update(ofPixels &sourcePixels);
+
+    static string getName() { return "Invert"; };
 };
 
 #endif //MSGLITCHER_MSGLITCHINVERT_H

@@ -13,6 +13,8 @@ public:
 
     MSGlitchGrayscale(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_GRAYSCALE; };
     void update(ofPixels &sourcePixels);
+
+    static string getName() { return "Grayscale"; };
 };
 
 #endif //MSGLITCHER_MSGLITCHGRAYSCALE_H

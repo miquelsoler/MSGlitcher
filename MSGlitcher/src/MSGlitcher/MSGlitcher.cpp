@@ -46,6 +46,7 @@ void MSGlitcher::removeGlitch(MSGlitchType glitchType)
     }
 
     if (found) {
+        delete glitches[glitchIndex];
         glitches.erase(glitches.begin() + glitchIndex);
     }
 }

@@ -13,6 +13,8 @@ public:
 
     MSGlitchGreen(int videoWidth, int videoHeight) : MSGlitch(videoWidth, videoHeight) { type = MSGT_GREEN; };
     void update(ofPixels &sourcePixels);
+
+    static string getName() { return "Green"; };
 };
 
 
