@@ -33,6 +33,9 @@ public:
     void update(ofPixels &sourcePixels);
     void draw(float x, float y, float w, float h);
 
+    int getVideoWidth() const { return videoWidth; }
+    int getVideoHeight() const { return videoHeight; }
+
 private:
 
     int videoWidth, videoHeight;

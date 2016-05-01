@@ -62,8 +62,8 @@ void ofApp::draw()
     {
         MSGlitcher &glitcher = MSGlitcher::getInstance();
 
-        int x = 10;
-        int y = 10, yIncr = 10;
+        int x = ofGetWidth() / 2;
+        int y = ofGetHeight() / 2, yIncr = 10;
         ofColor color = ofColor::white;
         ofSetColor(color);
         ofDrawBitmapString("KEYS", x, y += yIncr);
