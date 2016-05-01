@@ -44,6 +44,7 @@ void ofApp::setup()
     // Setup glitches GUI
 
     guiGlitches = new ofxDatGui(GUI_GLITCHES_OFFSET, GUI_GLITCHES_OFFSET + ofGetHeight()/2);
+    guiGlitches->setWidth(120);
 
     guiGlitches->addHeader("GLITCHES");
     guiGlitches->addBreak();
@@ -117,6 +118,7 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     MSGlitchType glitchType;
     MSGlitcher &glitcher = MSGlitcher::getInstance();
 
+    // Get glitch type
     if (e.target->is(MSGlitchInvert::getName())) {
         glitchType = MSGT_INVERT;
     } else if (e.target->is(MSGlitchGrayscale::getName())) {
@@ -131,8 +133,8 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
         glitchType = MSGT_NOISE;
     }
 
-    if (isEnabled)
-    {
+    // Add/remove glitch
+    if (isEnabled) {
         glitcher.addGlitch(glitchType);
     } else {
         glitcher.removeGlitch(glitchType);
