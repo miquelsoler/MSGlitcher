@@ -31,4 +31,5 @@ private:
     ofxDatGuiToggle *guiGlitchesRed;
     ofxDatGuiToggle *guiGlitchesGreen;
     ofxDatGuiToggle *guiGlitchesBlue;
+    ofxDatGui *guiGlitchStack;
 };

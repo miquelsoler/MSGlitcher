@@ -36,6 +36,8 @@ public:
     int getVideoWidth() const { return videoWidth; }
     int getVideoHeight() const { return videoHeight; }
 
+    vector<string> getGlitchesStack();
+
 private:
 
     int videoWidth, videoHeight;

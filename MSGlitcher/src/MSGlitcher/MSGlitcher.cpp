@@ -95,3 +95,23 @@ void MSGlitcher::draw(float x, float y, float w, float h)
 {
     glitchedTexture.draw(x, y, w, h);
 }
+
+vector<string> MSGlitcher::getGlitchesStack()
+{
+    vector<string> result;
+
+    for (unsigned long i=glitches.size()-1; i>=0; --i) {
+        MSGlitchType glitchType = glitches[i]->getType();
+        switch(glitchType) {
+            case MSGT_INVERT:       result.push_back(MSGlitchInvert::getName()); break;
+            case MSGT_GRAYSCALE:    result.push_back(MSGlitchGrayscale::getName()); break;
+            case MSGT_RED:          result.push_back(MSGlitchRed::getName()); break;
+            case MSGT_GREEN:        result.push_back(MSGlitchGreen::getName()); break;
+            case MSGT_BLUE:         result.push_back(MSGlitchBlue::getName()); break;
+            case MSGT_NOISE:        result.push_back(MSGlitchNoise::getName()); break;
+            default: break;
+        }
+    }
+
+    return result;
+}

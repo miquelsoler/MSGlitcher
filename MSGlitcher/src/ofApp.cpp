@@ -12,6 +12,10 @@ static const string     GUI_GLITCHES_TITLE = "GLITCHES";
 static const int        GUI_GLITCHES_X = GUI_VIDEO_X + GUI_VIDEO_WIDTH + GUI_OFFSET;
 static const int        GUI_GLITCHES_WIDTH = 140;
 
+static const string     GUI_GLITCHSTACK_TITLE = "GLITCH STACK";
+static const int        GUI_GLITCHSTACK_X = GUI_GLITCHES_X + GUI_GLITCHES_WIDTH + GUI_OFFSET;
+static const int        GUI_GLITCHSTACK_WIDTH = 140;
+
 
 //--------------------------------------------------------------
 void ofApp::setup()
@@ -28,40 +32,50 @@ void ofApp::setup()
 
     videoPlayer.play();
 
-    // Setup video GUI
+    { // Setup video GUI
+        guiVideo = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        guiVideo->setTheme(new ofxDatGuiThemeAutumn());
+        guiVideo->setWidth(GUI_VIDEO_WIDTH);
 
-    guiVideo = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
-    guiVideo->setTheme(new ofxDatGuiThemeAutumn());
-    guiVideo->setWidth(GUI_VIDEO_WIDTH);
+        guiVideo->addHeader(GUI_VIDEO_TITLE);
+        guiVideo->addBreak();
 
-    guiVideo->addHeader(GUI_VIDEO_TITLE);
-    guiVideo->addBreak();
+        guiVideo->addButton(GUI_VIDEO_PLAY);
+        guiVideo->addButton(GUI_VIDEO_STOP);
+        guiVideo->addBreak();
 
-    guiVideo->addButton(GUI_VIDEO_PLAY);
-    guiVideo->addButton(GUI_VIDEO_STOP);
-    guiVideo->addBreak();
+        guiVideo->addFRM();
 
-    guiVideo->addFRM();
+        guiVideo->onButtonEvent(this, &ofApp::onVideoButtonEvent);
+    }
 
-    guiVideo->onButtonEvent(this, &ofApp::onVideoButtonEvent);
+    { // Setup glitches GUI
+        guiGlitches = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        guiGlitches->setTheme(new ofxDatGuiThemeAutumn());
+        guiGlitches->setWidth(GUI_GLITCHES_WIDTH);
 
-    // Setup glitches GUI
+        guiGlitches->addHeader(GUI_GLITCHES_TITLE);
+        guiGlitches->addBreak();
 
-    guiGlitches = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
-    guiGlitches->setTheme(new ofxDatGuiThemeAutumn());
-    guiGlitches->setWidth(GUI_GLITCHES_WIDTH);
+        guiGlitches->addToggle(MSGlitchInvert::getName(), false);
+        guiGlitches->addToggle(MSGlitchGrayscale::getName(), false);
+        guiGlitchesRed = guiGlitches->addToggle(MSGlitchRed::getName(), false);
+        guiGlitchesGreen = guiGlitches->addToggle(MSGlitchGreen::getName(), false);
+        guiGlitchesBlue = guiGlitches->addToggle(MSGlitchBlue::getName(), false);
+        guiGlitches->addToggle(MSGlitchNoise::getName(), false);
 
-    guiGlitches->addHeader(GUI_GLITCHES_TITLE);
-    guiGlitches->addBreak();
+        guiGlitches->onButtonEvent(this, &ofApp::onGlitchesButtonEvent);
+    }
 
-    guiGlitches->addToggle(MSGlitchInvert::getName(), false);
-    guiGlitches->addToggle(MSGlitchGrayscale::getName(), false);
-    guiGlitchesRed = guiGlitches->addToggle(MSGlitchRed::getName(), false);
-    guiGlitchesGreen = guiGlitches->addToggle(MSGlitchGreen::getName(), false);
-    guiGlitchesBlue = guiGlitches->addToggle(MSGlitchBlue::getName(), false);
-    guiGlitches->addToggle(MSGlitchNoise::getName(), false);
+    { // Setup glitches stack GUI
+        guiGlitchStack = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        guiGlitchStack->setTheme(new ofxDatGuiThemeAutumn);
+        guiGlitchStack->setWidth(GUI_GLITCHSTACK_WIDTH);
 
-    guiGlitches->onButtonEvent(this, &ofApp::onGlitchesButtonEvent);
+        guiGlitchStack->addHeader(GUI_GLITCHSTACK_TITLE);
+        guiGlitchStack->addBreak();
+    }
+
 
     setGUIPosition();
 
@@ -124,6 +138,7 @@ void ofApp::setGUIPosition()
     int y = GUI_OFFSET + (ofGetHeight() / 2);
     guiVideo->setPosition(GUI_OFFSET, y);
     guiGlitches->setPosition(GUI_GLITCHES_X, y);
+    guiGlitchStack->setPosition(GUI_GLITCHSTACK_X, y);
 }
 
 void ofApp::onVideoButtonEvent(ofxDatGuiButtonEvent e)
@@ -178,6 +193,7 @@ void ofApp::setViewports()
 
 void ofApp::updateGlitchesGUI(MSGlitchType selectedGlitchType)
 {
+    // R, G and B glitches are mutually exclusive
     switch(selectedGlitchType) {
         case MSGT_RED:
             guiGlitchesGreen->setEnabled(false);
