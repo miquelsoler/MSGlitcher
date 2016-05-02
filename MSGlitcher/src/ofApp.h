@@ -14,9 +14,13 @@ public:
 
 private:
 
+    void updateViewports();
+
     void onButtonEvent(ofxDatGuiButtonEvent e);
 
-    ofVideoGrabber videoGrabber;
+    ofVideoPlayer videoPlayer;
+    float videoAspectRatio;
+    int viewportWidth, viewportHeight;
 
     ofxDatGui *guiGlitches;
 };

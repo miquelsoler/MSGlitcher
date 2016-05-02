@@ -7,44 +7,22 @@ static const int GUI_GLITCHES_OFFSET = 10;
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    // Get video devices
+    // Load video
 
-    vector<ofVideoDevice> videoDevices = videoGrabber.listDevices();
-    vector<int> availableVideoDevices;
-    cout << endl << "VIDEO DEVICES" << endl;
-    for (int i=0; i<videoDevices.size(); ++i)
-    {
-        ofVideoDevice &device = videoDevices[i];
-        cout << "-------------------" << endl;
-        cout << "Name:      \"" << device.deviceName << "\"" << endl;
-        cout << "Id:        \"" << device.id << "\""  << endl;
-        cout << "Hardware:  \"" << device.hardwareName << "\""  << endl;
-        cout << "Available: \"" << (device.bAvailable ? "true" : "false") << "\""  << endl;
+    videoPlayer.load("videos/_sampleVideo.in.mp4");
+    videoPlayer.setLoopState(OF_LOOP_PALINDROME);
 
-        if (!device.bAvailable) continue;
+    videoAspectRatio = videoPlayer.getWidth() / videoPlayer.getHeight();
+    int videoWidth = (int)videoPlayer.getWidth();
+    int videoHeight = (int)videoPlayer.getHeight();
+    updateViewports();
 
-        availableVideoDevices.push_back(device.id);
-    }
-
-    if (availableVideoDevices.size() < 1)
-    {
-        cout << "No available video devices. Exiting..." << endl;
-        std::exit(EXIT_FAILURE);
-    }
-
-    // Create video grabber
-
-    int videoWidth = 1024;
-    int videoHeight = 576;
-
-    videoGrabber.setDeviceID(availableVideoDevices[0]);
-    videoGrabber.setDesiredFrameRate(30);
-    videoGrabber.setup(videoWidth, videoHeight);
+    videoPlayer.play();
 
     // Setup glitches GUI
 
     guiGlitches = new ofxDatGui(GUI_GLITCHES_OFFSET, GUI_GLITCHES_OFFSET + ofGetHeight()/2);
-    guiGlitches->setWidth(120);
+    guiGlitches->setWidth(400);
 
     guiGlitches->addHeader("GLITCHES");
     guiGlitches->addBreak();
@@ -55,6 +33,8 @@ void ofApp::setup()
     guiGlitches->addToggle(MSGlitchInvert::getName(), false);
     guiGlitches->addToggle(MSGlitchGrayscale::getName(), false);
     guiGlitches->addToggle(MSGlitchRed::getName(), false);
+    guiGlitches->addMatrix("Matrix", 3, true)->setRadioMode(true);
+
     guiGlitches->addToggle(MSGlitchGreen::getName(), false);
     guiGlitches->addToggle(MSGlitchBlue::getName(), false);
     guiGlitches->addToggle(MSGlitchNoise::getName(), false);
@@ -74,18 +54,18 @@ void ofApp::setup()
 //--------------------------------------------------------------
 void ofApp::update()
 {
-    videoGrabber.update();
+    videoPlayer.update();
 
-    if (videoGrabber.isFrameNew()) {
-        MSGlitcher::getInstance().update(videoGrabber.getPixels());
+    if (videoPlayer.isFrameNew()) {
+        MSGlitcher::getInstance().update(videoPlayer.getPixels());
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-    videoGrabber.draw(0, 0, ofGetWidth()/2, ofGetHeight()/2);
-    MSGlitcher::getInstance().draw(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight()/2);
+    videoPlayer.draw(0, 0, viewportWidth, viewportHeight);
+    MSGlitcher::getInstance().draw(ofGetWidth()/2, 0, viewportWidth, viewportHeight);
 }
 
 //--------------------------------------------------------------
@@ -96,14 +76,13 @@ void ofApp::keyReleased(int key)
     switch(key)
     {
         case 'f':
-        case 'F':
-        {
+        case 'F': {
             ofToggleFullscreen();
+            updateViewports();
             guiGlitches->setPosition(GUI_GLITCHES_OFFSET, GUI_GLITCHES_OFFSET + ofGetHeight()/2);
             break;
         }
-        case 'g':
-        {
+        case 'g': {
             bool guiState = guiGlitches->getVisible();
             guiGlitches->setVisible(!guiState);
             break;
@@ -138,5 +117,16 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
         glitcher.addGlitch(glitchType);
     } else {
         glitcher.removeGlitch(glitchType);
+    }
+}
+
+void ofApp::updateViewports()
+{
+    if (videoAspectRatio >= 1.0f) {
+        viewportWidth = ofGetWidth()/2;
+        viewportHeight = (int)(viewportWidth / videoAspectRatio);
+    } else {
+        viewportHeight = ofGetHeight()/2;
+        viewportWidth = (int)(viewportHeight / videoAspectRatio);
     }
 }
