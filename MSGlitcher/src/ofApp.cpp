@@ -1,18 +1,16 @@
 #include "ofApp.h"
 
-#include "MSGlitcher.h"
-
-static const int GUI_OFFSET = 10;
+static const int        GUI_OFFSET = 10;
 
 static const string     GUI_VIDEO_TITLE = "Video Playback";
 static const int        GUI_VIDEO_X = GUI_OFFSET;
-static const int        GUI_VIDEO_WIDTH = 100;
+static const int        GUI_VIDEO_WIDTH = 230;
 static const string     GUI_VIDEO_PLAY = "Play / Pause";
 static const string     GUI_VIDEO_STOP = "Stop";
 
 static const string     GUI_GLITCHES_TITLE = "GLITCHES";
 static const int        GUI_GLITCHES_X = GUI_VIDEO_X + GUI_VIDEO_WIDTH + GUI_OFFSET;
-static const int        GUI_GLITCHES_WIDTH = 300;
+static const int        GUI_GLITCHES_WIDTH = 140;
 
 
 //--------------------------------------------------------------
@@ -26,13 +24,14 @@ void ofApp::setup()
     videoAspectRatio = videoPlayer.getWidth() / videoPlayer.getHeight();
     int videoWidth = (int)videoPlayer.getWidth();
     int videoHeight = (int)videoPlayer.getHeight();
-    setupViewports();
+    setViewports();
 
     videoPlayer.play();
 
     // Setup video GUI
 
     guiVideo = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+    guiVideo->setTheme(new ofxDatGuiThemeAutumn());
     guiVideo->setWidth(GUI_VIDEO_WIDTH);
 
     guiVideo->addHeader(GUI_VIDEO_TITLE);
@@ -49,6 +48,7 @@ void ofApp::setup()
     // Setup glitches GUI
 
     guiGlitches = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+    guiGlitches->setTheme(new ofxDatGuiThemeAutumn());
     guiGlitches->setWidth(GUI_GLITCHES_WIDTH);
 
     guiGlitches->addHeader(GUI_GLITCHES_TITLE);
@@ -56,16 +56,14 @@ void ofApp::setup()
 
     guiGlitches->addToggle(MSGlitchInvert::getName(), false);
     guiGlitches->addToggle(MSGlitchGrayscale::getName(), false);
-    guiGlitches->addToggle(MSGlitchRed::getName(), false);
-//    guiGlitches->addMatrix("Matrix", 3, true)->setRadioMode(true);
-
-    guiGlitches->addToggle(MSGlitchGreen::getName(), false);
-    guiGlitches->addToggle(MSGlitchBlue::getName(), false);
+    guiGlitchesRed = guiGlitches->addToggle(MSGlitchRed::getName(), false);
+    guiGlitchesGreen = guiGlitches->addToggle(MSGlitchGreen::getName(), false);
+    guiGlitchesBlue = guiGlitches->addToggle(MSGlitchBlue::getName(), false);
     guiGlitches->addToggle(MSGlitchNoise::getName(), false);
 
-    guiGlitches->onButtonEvent(this, &ofApp::onGlitchesToggleEvent);
+    guiGlitches->onButtonEvent(this, &ofApp::onGlitchesButtonEvent);
 
-    setupGUIPosition();
+    setGUIPosition();
 
     // Init glitcher
 
@@ -104,8 +102,8 @@ void ofApp::keyReleased(int key)
         case 'f':
         case 'F': {
             ofToggleFullscreen();
-            setupViewports();
-            setupGUIPosition();
+            setViewports();
+            setGUIPosition();
             break;
         }
         case 'g': {
@@ -121,6 +119,13 @@ void ofApp::keyReleased(int key)
     }
 }
 
+void ofApp::setGUIPosition()
+{
+    int y = GUI_OFFSET + (ofGetHeight() / 2);
+    guiVideo->setPosition(GUI_OFFSET, y);
+    guiGlitches->setPosition(GUI_GLITCHES_X, y);
+}
+
 void ofApp::onVideoButtonEvent(ofxDatGuiButtonEvent e)
 {
     if (e.target->is(GUI_VIDEO_PLAY)) {
@@ -130,10 +135,10 @@ void ofApp::onVideoButtonEvent(ofxDatGuiButtonEvent e)
     }
 }
 
-void ofApp::onGlitchesToggleEvent(ofxDatGuiButtonEvent e)
+void ofApp::onGlitchesButtonEvent(ofxDatGuiButtonEvent e)
 {
     bool isEnabled = e.enabled;
-    MSGlitchType glitchType;
+    MSGlitchType glitchType = MSGT_NONE;
     MSGlitcher &glitcher = MSGlitcher::getInstance();
 
     // Get glitch type
@@ -154,19 +159,13 @@ void ofApp::onGlitchesToggleEvent(ofxDatGuiButtonEvent e)
     // Add/remove glitch
     if (isEnabled) {
         glitcher.addGlitch(glitchType);
+        updateGlitchesGUI(glitchType);
     } else {
         glitcher.removeGlitch(glitchType);
     }
 }
 
-void ofApp::setupGUIPosition()
-{
-    int y = GUI_OFFSET + (ofGetHeight() / 2);
-    guiVideo->setPosition(GUI_OFFSET, y);
-    guiGlitches->setPosition(GUI_GLITCHES_X, y);
-}
-
-void ofApp::setupViewports()
+void ofApp::setViewports()
 {
     if (videoAspectRatio >= 1.0f) {
         viewportWidth = ofGetWidth()/2;
@@ -174,5 +173,24 @@ void ofApp::setupViewports()
     } else {
         viewportHeight = ofGetHeight()/2;
         viewportWidth = (int)(viewportHeight / videoAspectRatio);
+    }
+}
+
+void ofApp::updateGlitchesGUI(MSGlitchType selectedGlitchType)
+{
+    switch(selectedGlitchType) {
+        case MSGT_RED:
+            guiGlitchesGreen->setEnabled(false);
+            guiGlitchesBlue->setEnabled(false);
+            break;
+        case MSGT_GREEN:
+            guiGlitchesRed->setEnabled(false);
+            guiGlitchesBlue->setEnabled(false);
+            break;
+        case MSGT_BLUE:
+            guiGlitchesRed->setEnabled(false);
+            guiGlitchesRed->setEnabled(false);
+            break;
+        default: break;
     }
 }

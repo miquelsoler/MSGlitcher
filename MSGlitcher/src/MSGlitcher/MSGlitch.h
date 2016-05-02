@@ -9,12 +9,13 @@
 
 typedef enum
 {
-    MSGT_INVERT             = 0,
-    MSGT_GRAYSCALE          = 1,
-    MSGT_RED                = 2,
-    MSGT_GREEN              = 3,
-    MSGT_BLUE               = 4,
-    MSGT_NOISE              = 5,
+    MSGT_NONE               = 0,
+    MSGT_INVERT             = 1,
+    MSGT_GRAYSCALE          = 2,
+    MSGT_RED                = 3,
+    MSGT_GREEN              = 4,
+    MSGT_BLUE               = 5,
+    MSGT_NOISE              = 6,
 } MSGlitchType;
 
 typedef enum

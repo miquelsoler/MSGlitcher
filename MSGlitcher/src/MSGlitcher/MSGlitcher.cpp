@@ -16,14 +16,31 @@ void MSGlitcher::init(int _videoWidth, int _videoHeight)
 
 MSGlitch* MSGlitcher::addGlitch(MSGlitchType glitchType)
 {
+    if (isGlitchAdded(glitchType)) return;
+
     MSGlitch *glitch = NULL;
     switch(glitchType)
     {
         case MSGT_INVERT:       glitch = new MSGlitchInvert(videoWidth, videoHeight); break;
         case MSGT_GRAYSCALE:    glitch = new MSGlitchGrayscale(videoWidth, videoHeight); break;
-        case MSGT_RED:          glitch = new MSGlitchRed(videoWidth, videoHeight); break;
-        case MSGT_GREEN:        glitch = new MSGlitchGreen(videoWidth, videoHeight); break;
-        case MSGT_BLUE:         glitch = new MSGlitchBlue(videoWidth, videoHeight); break;
+        case MSGT_RED: { // R, G and B glitches are mutually exclusive
+            glitch = new MSGlitchRed(videoWidth, videoHeight);
+            removeGlitch(MSGT_GREEN);
+            removeGlitch(MSGT_BLUE);
+            break;
+        }
+        case MSGT_GREEN: { // R, G and B glitches are mutually exclusive
+            glitch = new MSGlitchGreen(videoWidth, videoHeight);
+            removeGlitch(MSGT_RED);
+            removeGlitch(MSGT_BLUE);
+            break;
+        }
+        case MSGT_BLUE: { // R, G and B glitches are mutually exclusive
+            glitch = new MSGlitchBlue(videoWidth, videoHeight);
+            removeGlitch(MSGT_RED);
+            removeGlitch(MSGT_GREEN);
+            break;
+        }
         case MSGT_NOISE:        glitch = new MSGlitchNoise(videoWidth, videoHeight); break;
         default: break;
     }

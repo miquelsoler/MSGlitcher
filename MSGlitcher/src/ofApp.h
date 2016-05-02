@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxDatGui.h"
+#include "MSGlitcher.h"
 
 class ofApp : public ofBaseApp
 {
@@ -14,11 +15,12 @@ public:
 
 private:
 
-    void setupGUIPosition();
-    void setupViewports();
-
     void onVideoButtonEvent(ofxDatGuiButtonEvent e);
-    void onGlitchesToggleEvent(ofxDatGuiButtonEvent e);
+    void onGlitchesButtonEvent(ofxDatGuiButtonEvent e);
+
+    void setGUIPosition();
+    void setViewports();
+    void updateGlitchesGUI(MSGlitchType selectedGlitchType);
 
     ofVideoPlayer videoPlayer;
     float videoAspectRatio;
@@ -26,4 +28,7 @@ private:
 
     ofxDatGui *guiVideo;
     ofxDatGui *guiGlitches;
+    ofxDatGuiToggle *guiGlitchesRed;
+    ofxDatGuiToggle *guiGlitchesGreen;
+    ofxDatGuiToggle *guiGlitchesBlue;
 };
