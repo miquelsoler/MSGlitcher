@@ -12,9 +12,8 @@ static const string     GUI_GLITCHES_TITLE = "GLITCHES";
 static const int        GUI_GLITCHES_X = GUI_VIDEO_X + GUI_VIDEO_WIDTH + GUI_OFFSET;
 static const int        GUI_GLITCHES_WIDTH = 140;
 
-static const string     GUI_GLITCHSTACK_TITLE = "GLITCH STACK";
-static const int        GUI_GLITCHSTACK_X = GUI_GLITCHES_X + GUI_GLITCHES_WIDTH + GUI_OFFSET;
-static const int        GUI_GLITCHSTACK_WIDTH = 140;
+static const string     GLITCHSTACK_TITLE = "GLITCH STACK:";
+static const int        GLITCHSTACK_X = GUI_GLITCHES_X + GUI_GLITCHES_WIDTH + GUI_OFFSET;
 
 
 //--------------------------------------------------------------
@@ -67,15 +66,8 @@ void ofApp::setup()
         guiGlitches->onButtonEvent(this, &ofApp::onGlitchesButtonEvent);
     }
 
-    { // Setup glitches stack GUI
-        guiGlitchStack = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
-        guiGlitchStack->setTheme(new ofxDatGuiThemeAutumn);
-        guiGlitchStack->setWidth(GUI_GLITCHSTACK_WIDTH);
-
-        guiGlitchStack->addHeader(GUI_GLITCHSTACK_TITLE);
-        guiGlitchStack->addBreak();
-    }
-
+    showGlitchesStack = true;
+    buildGlitchesStackText();
 
     setGUIPosition();
 
@@ -104,6 +96,18 @@ void ofApp::draw()
 {
     videoPlayer.draw(0, 0, viewportWidth, viewportHeight);
     MSGlitcher::getInstance().draw(ofGetWidth()/2, 0, viewportWidth, viewportHeight);
+
+    ofPushStyle();
+    {
+        int textHeight = 10;
+        int textOffset = 10;
+        int x = ofGetWidth() - 200;
+        int y = ofGetHeight() / 2 + textOffset*2;
+
+        ofSetColor(ofColor::darkGreen);
+        ofDrawBitmapString(glitchesStackText.str(), x, y);
+    }
+    ofPopStyle();
 }
 
 //--------------------------------------------------------------
@@ -138,7 +142,6 @@ void ofApp::setGUIPosition()
     int y = GUI_OFFSET + (ofGetHeight() / 2);
     guiVideo->setPosition(GUI_OFFSET, y);
     guiGlitches->setPosition(GUI_GLITCHES_X, y);
-    guiGlitchStack->setPosition(GUI_GLITCHSTACK_X, y);
 }
 
 void ofApp::onVideoButtonEvent(ofxDatGuiButtonEvent e)
@@ -178,6 +181,8 @@ void ofApp::onGlitchesButtonEvent(ofxDatGuiButtonEvent e)
     } else {
         glitcher.removeGlitch(glitchType);
     }
+
+    buildGlitchesStackText();
 }
 
 void ofApp::setViewports()
@@ -205,8 +210,24 @@ void ofApp::updateGlitchesGUI(MSGlitchType selectedGlitchType)
             break;
         case MSGT_BLUE:
             guiGlitchesRed->setEnabled(false);
-            guiGlitchesRed->setEnabled(false);
+            guiGlitchesGreen->setEnabled(false);
             break;
         default: break;
+    }
+}
+
+void ofApp::buildGlitchesStackText()
+{
+    if (showGlitchesStack)
+    {
+        glitchesStackText.str("");
+        glitchesStackText << GLITCHSTACK_TITLE << endl;
+        glitchesStackSize = 1;
+
+        vector <string> glitchesStack = MSGlitcher::getInstance().getGlitchesStack();
+        for (int i=0; i<glitchesStack.size(); ++i) {
+            glitchesStackSize++;
+            glitchesStackText << glitchesStack[i] << endl;
+        }
     }
 }

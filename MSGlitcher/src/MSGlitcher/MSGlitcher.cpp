@@ -99,8 +99,9 @@ void MSGlitcher::draw(float x, float y, float w, float h)
 vector<string> MSGlitcher::getGlitchesStack()
 {
     vector<string> result;
+    if (glitches.size() == 0) return result;
 
-    for (unsigned long i=glitches.size()-1; i>=0; --i) {
+    for (int i=int(glitches.size()-1); i>=0; i--) {
         MSGlitchType glitchType = glitches[i]->getType();
         switch(glitchType) {
             case MSGT_INVERT:       result.push_back(MSGlitchInvert::getName()); break;

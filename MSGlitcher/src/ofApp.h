@@ -21,15 +21,19 @@ private:
     void setGUIPosition();
     void setViewports();
     void updateGlitchesGUI(MSGlitchType selectedGlitchType);
+    void buildGlitchesStackText();
 
     ofVideoPlayer videoPlayer;
     float videoAspectRatio;
     int viewportWidth, viewportHeight;
 
+    stringstream glitchesStackText;
+    int glitchesStackSize;
+    bool showGlitchesStack;
+    
     ofxDatGui *guiVideo;
     ofxDatGui *guiGlitches;
     ofxDatGuiToggle *guiGlitchesRed;
     ofxDatGuiToggle *guiGlitchesGreen;
     ofxDatGuiToggle *guiGlitchesBlue;
-    ofxDatGui *guiGlitchStack;
 };
