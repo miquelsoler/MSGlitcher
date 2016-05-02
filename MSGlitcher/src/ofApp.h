@@ -14,13 +14,16 @@ public:
 
 private:
 
-    void updateViewports();
+    void setupGUIPosition();
+    void setupViewports();
 
-    void onButtonEvent(ofxDatGuiButtonEvent e);
+    void onVideoButtonEvent(ofxDatGuiButtonEvent e);
+    void onGlitchesToggleEvent(ofxDatGuiButtonEvent e);
 
     ofVideoPlayer videoPlayer;
     float videoAspectRatio;
     int viewportWidth, viewportHeight;
 
+    ofxDatGui *guiVideo;
     ofxDatGui *guiGlitches;
 };

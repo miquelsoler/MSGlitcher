@@ -2,7 +2,18 @@
 
 #include "MSGlitcher.h"
 
-static const int GUI_GLITCHES_OFFSET = 10;
+static const int GUI_OFFSET = 10;
+
+static const string     GUI_VIDEO_TITLE = "Video Playback";
+static const int        GUI_VIDEO_X = GUI_OFFSET;
+static const int        GUI_VIDEO_WIDTH = 100;
+static const string     GUI_VIDEO_PLAY = "Play / Pause";
+static const string     GUI_VIDEO_STOP = "Stop";
+
+static const string     GUI_GLITCHES_TITLE = "GLITCHES";
+static const int        GUI_GLITCHES_X = GUI_VIDEO_X + GUI_VIDEO_WIDTH + GUI_OFFSET;
+static const int        GUI_GLITCHES_WIDTH = 300;
+
 
 //--------------------------------------------------------------
 void ofApp::setup()
@@ -10,36 +21,51 @@ void ofApp::setup()
     // Load video
 
     videoPlayer.load("videos/_sampleVideo.in.mp4");
-    videoPlayer.setLoopState(OF_LOOP_PALINDROME);
+    videoPlayer.setLoopState(OF_LOOP_NORMAL);
 
     videoAspectRatio = videoPlayer.getWidth() / videoPlayer.getHeight();
     int videoWidth = (int)videoPlayer.getWidth();
     int videoHeight = (int)videoPlayer.getHeight();
-    updateViewports();
+    setupViewports();
 
     videoPlayer.play();
 
+    // Setup video GUI
+
+    guiVideo = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+    guiVideo->setWidth(GUI_VIDEO_WIDTH);
+
+    guiVideo->addHeader(GUI_VIDEO_TITLE);
+    guiVideo->addBreak();
+
+    guiVideo->addButton(GUI_VIDEO_PLAY);
+    guiVideo->addButton(GUI_VIDEO_STOP);
+    guiVideo->addBreak();
+
+    guiVideo->addFRM();
+
+    guiVideo->onButtonEvent(this, &ofApp::onVideoButtonEvent);
+
     // Setup glitches GUI
 
-    guiGlitches = new ofxDatGui(GUI_GLITCHES_OFFSET, GUI_GLITCHES_OFFSET + ofGetHeight()/2);
-    guiGlitches->setWidth(400);
+    guiGlitches = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+    guiGlitches->setWidth(GUI_GLITCHES_WIDTH);
 
-    guiGlitches->addHeader("GLITCHES");
-    guiGlitches->addBreak();
-
-    guiGlitches->addFRM();
+    guiGlitches->addHeader(GUI_GLITCHES_TITLE);
     guiGlitches->addBreak();
 
     guiGlitches->addToggle(MSGlitchInvert::getName(), false);
     guiGlitches->addToggle(MSGlitchGrayscale::getName(), false);
     guiGlitches->addToggle(MSGlitchRed::getName(), false);
-    guiGlitches->addMatrix("Matrix", 3, true)->setRadioMode(true);
+//    guiGlitches->addMatrix("Matrix", 3, true)->setRadioMode(true);
 
     guiGlitches->addToggle(MSGlitchGreen::getName(), false);
     guiGlitches->addToggle(MSGlitchBlue::getName(), false);
     guiGlitches->addToggle(MSGlitchNoise::getName(), false);
 
-    guiGlitches->onButtonEvent(this, &ofApp::onButtonEvent);
+    guiGlitches->onButtonEvent(this, &ofApp::onGlitchesToggleEvent);
+
+    setupGUIPosition();
 
     // Init glitcher
 
@@ -78,8 +104,8 @@ void ofApp::keyReleased(int key)
         case 'f':
         case 'F': {
             ofToggleFullscreen();
-            updateViewports();
-            guiGlitches->setPosition(GUI_GLITCHES_OFFSET, GUI_GLITCHES_OFFSET + ofGetHeight()/2);
+            setupViewports();
+            setupGUIPosition();
             break;
         }
         case 'g': {
@@ -87,11 +113,24 @@ void ofApp::keyReleased(int key)
             guiGlitches->setVisible(!guiState);
             break;
         }
+        case ' ': {
+            videoPlayer.setPaused(!videoPlayer.isPaused());
+            break;
+        }
         default: break;
     }
 }
 
-void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
+void ofApp::onVideoButtonEvent(ofxDatGuiButtonEvent e)
+{
+    if (e.target->is(GUI_VIDEO_PLAY)) {
+        videoPlayer.setPaused(!videoPlayer.isPaused());
+    } else if (e.target->is(GUI_VIDEO_STOP)) {
+        videoPlayer.stop();
+    }
+}
+
+void ofApp::onGlitchesToggleEvent(ofxDatGuiButtonEvent e)
 {
     bool isEnabled = e.enabled;
     MSGlitchType glitchType;
@@ -120,7 +159,14 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
     }
 }
 
-void ofApp::updateViewports()
+void ofApp::setupGUIPosition()
+{
+    int y = GUI_OFFSET + (ofGetHeight() / 2);
+    guiVideo->setPosition(GUI_OFFSET, y);
+    guiGlitches->setPosition(GUI_GLITCHES_X, y);
+}
+
+void ofApp::setupViewports()
 {
     if (videoAspectRatio >= 1.0f) {
         viewportWidth = ofGetWidth()/2;
