@@ -11,13 +11,6 @@ void MSGlitchBlue::update(ofPixels &sourcePixels)
 
     for (int i=0; i<sourcePixels.size(); ++i)
     {
-        switch(areaMode)
-        {
-            case MSGAM_FULL:
-            {
-                if (i % 3 != 2) sourcePixels[i] = 0; break;
-            }
-            default: break;
-        }
+        if (i % 3 != 2) sourcePixels[i] = 0;
     }
 }

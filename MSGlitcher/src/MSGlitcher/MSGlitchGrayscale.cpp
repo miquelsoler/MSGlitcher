@@ -11,19 +11,12 @@ void MSGlitchGrayscale::update(ofPixels &sourcePixels)
 
     for (int i=0; i<sourcePixels.size(); i+=3)
     {
-        switch(areaMode)
-        {
-            case MSGAM_FULL:
-            {
-                int r = sourcePixels[i+0];
-                int g = sourcePixels[i+1];
-                int b = sourcePixels[i+2];
-                int average = (r + g + b) / 3;
-                sourcePixels[i + 0] = (unsigned char)average;
-                sourcePixels[i + 1] = (unsigned char)average;
-                sourcePixels[i + 2] = (unsigned char)average;
-            }
-            default: break;
-        }
+        int r = sourcePixels[i+0];
+        int g = sourcePixels[i+1];
+        int b = sourcePixels[i+2];
+        int average = (r + g + b) / 3;
+        sourcePixels[i + 0] = (unsigned char)average;
+        sourcePixels[i + 1] = (unsigned char)average;
+        sourcePixels[i + 2] = (unsigned char)average;
     }
 }

@@ -14,20 +14,12 @@ void MSGlitchNoise::update(ofPixels &sourcePixels)
 
     for (int i=0; i<sourcePixels.size(); i+=3)
     {
-        switch(areaMode)
+        if (ofInRange(ofRandom(0, 1), 0.0f, NOISE_AMOUNT))
         {
-            case MSGAM_FULL:
-            {
-                if (ofInRange(ofRandom(0, 1), 0.0f, NOISE_AMOUNT))
-                {
-                    float noiseStrength = 1.0f - NOISE_STRENGTH;
-                    sourcePixels[i + 0] *= noiseStrength;
-                    sourcePixels[i + 1] *= noiseStrength;
-                    sourcePixels[i + 2] *= noiseStrength;
-                }
-                break;
-            }
-            default: break;
+            float noiseStrength = 1.0f - NOISE_STRENGTH;
+            sourcePixels[i + 0] *= noiseStrength;
+            sourcePixels[i + 1] *= noiseStrength;
+            sourcePixels[i + 2] *= noiseStrength;
         }
     }
 }

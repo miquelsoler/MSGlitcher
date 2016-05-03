@@ -99,14 +99,13 @@ void ofApp::draw()
 
     ofPushStyle();
     {
-        int textHeight = 10;
         int textOffset = 10;
         int x = ofGetWidth() - 200;
         int y = ofGetHeight() / 2 + textOffset*2;
 
         if (showGlitchesStack) {
             ofPushStyle();
-            ofSetColor(ofColor::darkGreen);
+            ofSetColor(ofColor::lightGreen);
             ofDrawBitmapString(glitchesStackText.str(), x, y);
             ofPopStyle();
         }

@@ -10,7 +10,6 @@ MSGlitch::MSGlitch(int _videoWidth, int _videoHeight)
     videoWidth = _videoWidth;
     videoHeight = _videoHeight;
 
-    areaMode = MSGAM_FULL;
     timerMode = MSGTM_ALWAYS;
 
     hasStarted = false;
@@ -20,15 +19,8 @@ MSGlitch::~MSGlitch()
 {
 }
 
-void MSGlitch::setArea(MSGlitchAreaMode _areaMode, int _areaSize)
+void MSGlitch::setArea(float fromX, float fromY, float toX, float toY)
 {
-    areaMode = _areaMode;
-    areaSize = _areaSize;
-
-    switch (areaMode)
-    {
-        default: break;
-    }
 }
 
 void MSGlitch::setTimer(MSGlitchTimerMode _timerMode, uint64_t _timerStartMs, uint64_t _timerPeriodMs, uint64_t _timerLength)

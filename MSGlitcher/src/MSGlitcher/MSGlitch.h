@@ -20,14 +20,6 @@ typedef enum
 
 typedef enum
 {
-    MSGAM_FULL          = 0,
-    MSGAM_RANDOM        = 1,
-    MSGAM_HORIZONTAL    = 2,
-    MSGAM_VERTICAL      = 3
-} MSGlitchAreaMode;
-
-typedef enum
-{
     MSGTM_ALWAYS    = 0,
     MSGTM_RANDOM    = 1,
     MSGTM_TIMED     = 2
@@ -41,7 +33,7 @@ public:
     MSGlitch(int videoWidth, int videoHeight);
     ~MSGlitch();
 
-    void setArea(MSGlitchAreaMode areaMode, int areaSizeInPixels = 0);
+    void setArea(float fromX, float fromY, float toX, float toY);
     void setTimer(MSGlitchTimerMode timerMode, uint64_t timerStartMs = 0, uint64_t timerPeriodMs = 0, uint64_t timerLength = 0);
 
     virtual void update(ofPixels &sourcePixels);
@@ -53,10 +45,8 @@ protected:
     int videoWidth, videoHeight;
 
 protected:
-    MSGlitchType type;
 
-    MSGlitchAreaMode areaMode;
-    int areaSize;
+    MSGlitchType type;
 
     MSGlitchTimerMode timerMode;
     uint64_t timerStartMs;
