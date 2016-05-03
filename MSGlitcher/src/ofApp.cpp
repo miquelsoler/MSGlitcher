@@ -104,8 +104,12 @@ void ofApp::draw()
         int x = ofGetWidth() - 200;
         int y = ofGetHeight() / 2 + textOffset*2;
 
-        ofSetColor(ofColor::darkGreen);
-        ofDrawBitmapString(glitchesStackText.str(), x, y);
+        if (showGlitchesStack) {
+            ofPushStyle();
+            ofSetColor(ofColor::darkGreen);
+            ofDrawBitmapString(glitchesStackText.str(), x, y);
+            ofPopStyle();
+        }
     }
     ofPopStyle();
 }
@@ -126,7 +130,9 @@ void ofApp::keyReleased(int key)
         }
         case 'g': {
             bool guiState = guiGlitches->getVisible();
+            guiVideo->setVisible(!guiState);
             guiGlitches->setVisible(!guiState);
+            showGlitchesStack = !showGlitchesStack;
             break;
         }
         case ' ': {
@@ -181,6 +187,8 @@ void ofApp::onGlitchesButtonEvent(ofxDatGuiButtonEvent e)
     } else {
         glitcher.removeGlitch(glitchType);
     }
+
+    MSGlitcher::getInstance().update(videoPlayer.getPixels());
 
     buildGlitchesStackText();
 }

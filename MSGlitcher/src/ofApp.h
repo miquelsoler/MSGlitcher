@@ -30,7 +30,7 @@ private:
     stringstream glitchesStackText;
     int glitchesStackSize;
     bool showGlitchesStack;
-    
+
     ofxDatGui *guiVideo;
     ofxDatGui *guiGlitches;
     ofxDatGuiToggle *guiGlitchesRed;
